@@ -11,7 +11,11 @@ public class Manager {
     }
 
     boolean canStoreTruck(int incomingQty){
-        int currentCapacity = warehouse.getCurrentCapacity();
+        int currentCapacity = 0;
+        for(String item:warehouse.itemName){
+            currentCapacity += warehouse.getItemQty(item);
+        }
+
         return (currentCapacity+incomingQty<200);
     }
 }
