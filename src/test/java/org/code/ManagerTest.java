@@ -50,18 +50,18 @@ public class ManagerTest {
         warehouse.itemName.add("item 3");
         operationManager = new Manager(warehouse);
 
-        when(warehouse.getItemQty("item 1")).thenReturn(5);
+        when(warehouse.getItemQty("item 1")).thenReturn(50);
         //returns same value every time
         when(warehouse.getItemQty("item 2")).thenReturn(8);
         //return 10 when called first time and 12 for every time after that
         when(warehouse.getItemQty("item 3")).thenReturn(10).thenReturn(12);
 
-        boolean currentCapacity = operationManager.canStoreTruck(100);
+        boolean canOrderTruck = operationManager.canStoreTruck(100);
         InOrder inOrder = Mockito.inOrder(warehouse);
         inOrder.verify(warehouse).getItemQty("item 1");
         inOrder.verify(warehouse,times(2)).getItemQty("item 2");
         inOrder.verify(warehouse,times(3)).getItemQty("item 3");
 
-        assertTrue(currentCapacity);
+        assertFalse(canOrderTruck);
     }
 }
